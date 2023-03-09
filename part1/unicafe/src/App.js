@@ -3,21 +3,30 @@ import { useState } from "react";
 const Header = ({ title }) => <h1>{title}</h1>;
 
 const StatisticLine = ({ name, value }) => (
-  <div>
-    {name} {value}
-  </div>
+  <tr>
+    <td>{name}</td>
+    <td>{value}</td>
+  </tr>
 );
 
 const Statistics = ({ good, neutral, bad }) => {
   if (good + neutral + bad > 0) {
     return (
-      <>
-        <StatisticLine name="good" value={good} />
-        <StatisticLine name="neutral" value={neutral} />
-        <StatisticLine name="bad" value={bad} />
-        <StatisticLine name="average" value={(good * 1 + bad * -1) / (good + neutral + bad)} />
-        <StatisticLine name="positive" value={`${(good / (good + neutral + bad)) * 100}%`} />
-      </>
+      <table>
+        <tbody>
+          <StatisticLine name="good" value={good} />
+          <StatisticLine name="neutral" value={neutral} />
+          <StatisticLine name="bad" value={bad} />
+          <StatisticLine
+            name="average"
+            value={(good * 1 + bad * -1) / (good + neutral + bad)}
+          />
+          <StatisticLine
+            name="positive"
+            value={`${(good / (good + neutral + bad)) * 100}%`}
+          />
+        </tbody>
+      </table>
     );
   }
 
@@ -36,7 +45,7 @@ const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  
+
   const buttons = [
     {
       onClick: () => setGood(good + 1),
